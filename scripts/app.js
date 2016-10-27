@@ -1,5 +1,6 @@
 angular
   .module('app', [
+    'ngMap',
     'ui.router',
     'ui.grid',
     'ui.grid.pagination',
@@ -7,7 +8,7 @@ angular
     'ui.grid.selection',
     'ui.grid.exporter',
     'ui.grid.edit'
-  ])
+   ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise('simple');

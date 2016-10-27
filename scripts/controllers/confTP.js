@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('ConfTPCtrl', function($scope, data, i18nService, uiGridConstants) {
+  .controller('ConfTPCtrl', function($scope, data, i18nService, uiGridConstants,$timeout, NgMap) {
     $scope.titulo = "Configuracion Campos TP";
     // Objeto de configuracion de la grilla.
     $scope.gridOptions = {};
@@ -22,13 +22,19 @@ angular
 
 // http://ui-grid.info/docs/#/tutorial/305_appScope
      $scope.someProp = 'abc',
+//Muestra todos los datos de una fila y cual es la ubicación del usuario en el mundo     
      $scope.showMe = function(entidad,latitud,longitud){
                    //alert($scope.someProp);
                    console.info('Datos de la fila:',entidad);
                    console.info('Latitud:',latitud);
                    console.info('Longitud:',longitud);
+                   $scope.latitud = latitud;
+                   $scope.longitud = longitud;
                 };
 
+//Ingreso el API KEY para poder cargar google maps
+     //$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC7EInJlB9mYQpGX5M3fGg8fYFOQ5KYhg";           
+     
     function columnDefs () {
       return [
         { field: 'id', name: '#', width: 45},
@@ -63,7 +69,7 @@ angular
           ,cellFilter: "date: 'dd-MM-yyyy'"
         },
          { name: 'ShowScope',
-             cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Click Me</button>' }
+             cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ubicación Usuario</button>' }
       ];
     }
   })

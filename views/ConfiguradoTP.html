@@ -5,4 +5,12 @@
     ui-grid-auto-resize
     ui-grid-resize-columns
   > </div>
+  <!--<div map-lazy-load="https://maps.google.com/maps/api/js"-->
+  <!--<div map-lazy-load-params="{{googleMapsUrl}}">-->
+  <!--</div>	
+  	<ng-map center="41,-87" zoom="6"></ng-map>
+  </div>-->
+  <ng-map zoom="2" center="{{latitud}}, {{longitud}}">
+    <marker position="{{latitud}}, {{longitud}}"></marker> 
+  </ng-map>
 </div>
