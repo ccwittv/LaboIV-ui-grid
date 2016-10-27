@@ -1,5 +1,5 @@
 <div>
-  <h3>{{titulo}}</h3>
+  <h5>{{titulo}}</h5>
   <div ui-grid="gridOptions" class="myGrid"
     ui-grid-pagination
     ui-grid-auto-resize
@@ -10,7 +10,43 @@
   <!--</div>	
   	<ng-map center="41,-87" zoom="6"></ng-map>
   </div>-->
-  <ng-map zoom="2" center="{{latitud}}, {{longitud}}">
-    <marker position="{{latitud}}, {{longitud}}"></marker> 
-  </ng-map>
+
+  <div class="myGrid"> 
+    <ng-map zoom="2" center="{{latitud}}, {{longitud}}">
+      <marker position="{{latitud}}, {{longitud}}"></marker> 
+    </ng-map>
+  </div>
+
+  <div class= "cajon3"> 
+    <h6>Listado de amigos</h6>
+              <input type="search" ng-model="buscador" placeholder="Buscar Amigo">    
+              <!-- id="listaPersonas" -->
+                
+                <table class='table table-hover table-responsive' id="listaAmigos">
+                  <thead>
+                    <tr>
+                      <th>  Nombre   </th>        
+                      <th>  Apellido     </th>
+                      <th>  Foto   </th>
+                      <th>  Fecha de nacimiento        </th>
+                      <th>  Avatar     </th>
+                    </tr> 
+                  </thead>
+                  
+                  <tr ng-repeat="amigo in listadoAmigos | filter:buscador as resultado">
+
+                    <td>{{amigo.nombre}}</td>
+                    <td>{{amigo.apellido}}</td>
+                    <td><img ng-src="{{amigo.foto}}"/></td>
+                    <td>{{amigo.fechaNacimiento}}</td>
+                    <td><img height="20" width="20" ng-src="{{amigo.avatar}}"/></td>
+                        
+                  </tr>
+                  
+                </table>
+                <div ng-if="resultado.length==0">
+                  No hay amigos con ese critero.
+                </div>
+  </div>
+
 </div>

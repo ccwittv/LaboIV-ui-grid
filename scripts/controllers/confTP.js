@@ -21,7 +21,8 @@ angular
     console.log(uiGridConstants);
 
 // http://ui-grid.info/docs/#/tutorial/305_appScope
-     $scope.someProp = 'abc',
+     $scope.someProp = 'abc';
+     $scope.listadoAmigos = [];
 //Muestra todos los datos de una fila y cual es la ubicación del usuario en el mundo     
      $scope.showMe = function(entidad,latitud,longitud){
                    //alert($scope.someProp);
@@ -30,6 +31,10 @@ angular
                    console.info('Longitud:',longitud);
                    $scope.latitud = latitud;
                    $scope.longitud = longitud;
+                   $timeout($scope.listadoAmigos = entidad.amigos);
+                   //console.log($timeout);
+                   console.info('Amigos: ',$scope.listaDeAmigos)
+
                 };
 
 //Ingreso el API KEY para poder cargar google maps
@@ -64,12 +69,12 @@ angular
           //filtro de los datos
           ,cellFilter: 'sexoTP'
         },
-        { field: 'fechaNacimiento', name: 'fechaNacimiento'
-          ,type: 'date'
-          ,cellFilter: "date: 'dd-MM-yyyy'"
-        },
-         { name: 'ShowScope',
-             cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ubicación Usuario</button>' }
+        // { field: 'fechaNacimiento', name: 'fechaNacimiento'
+        //   ,type: 'date'
+        //   ,cellFilter: "date: 'dd-MM-yyyy'"
+        // },
+         { name: 'Usuario',
+             cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ir a Mapa</button>' }
       ];
     }
   })
