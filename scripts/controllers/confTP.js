@@ -2,6 +2,7 @@ angular
   .module('app')
   .controller('ConfTPCtrl', function($scope, data, i18nService, uiGridConstants,$timeout, NgMap) {
     $scope.titulo = "Configuracion Campos TP";
+//Grid optios del usuario    
     // Objeto de configuracion de la grilla.
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
@@ -20,8 +21,18 @@ angular
 
     console.log(uiGridConstants);
 
+// Grid optios de los amigos del usuario
+    $scope.gridOptionsAmigos = {};
+    $scope.gridOptionsAmigos.data = {};
+    $scope.gridOptionsAmigos.paginationPageSizes = [25, 50, 75];
+    // Configuracion de la paginacion
+    $scope.gridOptionsAmigos.paginationPageSize = 25;
+    $scope.gridOptionsAmigos.columnDefs = columnDefsAmigos();
+    // Activo la busqueda en todos los campos.
+    $scope.gridOptionsAmigos.enableFiltering = true;
+
 // http://ui-grid.info/docs/#/tutorial/305_appScope
-     $scope.someProp = 'abc';
+     //$scope.someProp = 'abc';
      $scope.listadoAmigos = [];
 //Muestra todos los datos de una fila y cual es la ubicación del usuario en el mundo     
      $scope.showMe = function(entidad,latitud,longitud){
@@ -31,7 +42,9 @@ angular
                    console.info('Longitud:',longitud);
                    $scope.latitud = latitud;
                    $scope.longitud = longitud;
-                   $timeout($scope.listadoAmigos = entidad.amigos);
+                   //$timeout($scope.listadoAmigos = entidad.amigos);
+                   // Grid optios de los amigos del usuario
+                   $timeout($scope.gridOptionsAmigos.data = entidad.amigos);
                    //console.log($timeout);
                    console.info('Amigos: ',$scope.listaDeAmigos)
 
@@ -77,4 +90,22 @@ angular
              cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ir a Mapa</button>' }
       ];
     }
+
+    function columnDefsAmigos () {
+      return [
+        { field: 'foto', name: 'foto', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+        { field: 'nombre', name: 'Nombre'
+          ,enableFiltering: false
+        },
+        { field: 'apellido', name: 'apellido'},
+        { field: 'avatar', name: 'avatar', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+        { field: 'fechaNacimiento', name: 'Fecha de Nacimiento'
+           ,type: 'date'
+           ,cellFilter: "date: 'dd-MM-yyyy'"
+         },
+         /*{ name: 'Usuario',
+             cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ir a Mapa</button>' }*/
+      ];
+    }
+
   })

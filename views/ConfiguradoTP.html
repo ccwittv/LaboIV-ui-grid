@@ -17,10 +17,15 @@
     </ng-map>
   </div>
 
-  <div class= "cajon3"> 
+   <div ui-grid="gridOptionsAmigos" class="cajon3"
+    ui-grid-pagination
+    ui-grid-auto-resize
+    ui-grid-resize-columns
+  > </div>
+
+  <!--<div class= "cajon3"> 
     <h6>Listado de amigos</h6>
               <input type="search" ng-model="buscador" placeholder="Buscar Amigo">    
-              <!-- id="listaPersonas" -->
                 
                 <table class='table table-hover table-responsive' id="listaAmigos">
                   <thead>
@@ -47,6 +52,6 @@
                 <div ng-if="resultado.length==0">
                   No hay amigos con ese critero.
                 </div>
-  </div>
+  </div>-->
 
 </div>
