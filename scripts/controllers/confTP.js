@@ -42,7 +42,7 @@ angular
                    console.info('Longitud:',longitud);
                    $scope.latitud = latitud;
                    $scope.longitud = longitud;
-                   //$timeout($scope.listadoAmigos = entidad.amigos);
+                   $timeout($scope.listadoAmigos = entidad.amigos);
                    // Grid optios de los amigos del usuario
                    $timeout($scope.gridOptionsAmigos.data = entidad.amigos);
                    //console.log($timeout);

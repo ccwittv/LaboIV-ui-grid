@@ -14,6 +14,10 @@
   <div class="myGrid"> 
     <ng-map zoom="2" center="{{latitud}}, {{longitud}}">
       <marker position="{{latitud}}, {{longitud}}"></marker> 
+       <marker ng-repeat="amigo in listadoAmigos" 
+       position="{{amigo.latitud}}, {{amigo.longitud}}">
+              
+        </marker>
     </ng-map>
   </div>
 
