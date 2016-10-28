@@ -44,4 +44,9 @@ angular
       templateUrl: 'views/ConfiguradoTP.html',
       controller:'ConfTPCtrl'
     })
+    .state('confBandera', {
+      url: '/confBandera',
+      templateUrl: 'views/ConfiguradoBandera.html',
+      controller:'ConfBanderaCtrl'
+    })
   });

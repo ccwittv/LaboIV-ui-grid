@@ -18,4 +18,5 @@ angular
     this.sexo = function () {
       return $http.get('./data/animales.json').then(extraerData);
     }
+
   })
