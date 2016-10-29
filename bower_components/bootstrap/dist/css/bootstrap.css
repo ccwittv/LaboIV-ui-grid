@@ -6758,6 +6758,8 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+/* cajon 3 permite con el clear:booth poner el listado de amigos
+debajo de listado de usuarios y el mapa*/
 .cajon3{
 clear:both;
 position: relative;;

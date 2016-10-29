@@ -11,6 +11,7 @@ angular
     $scope.gridOptions.columnDefs = columnDefs();
     // Activo la busqueda en todos los campos.
     $scope.gridOptions.enableFiltering = true;
+    $scope.gridOptions.enableSorting = true;
     // Configuracion del idioma.
     i18nService.setCurrentLang('es');
 
@@ -23,14 +24,18 @@ angular
 
 // Grid optios de los amigos del usuario
     $scope.gridOptionsAmigos = {};
-    $scope.gridOptionsAmigos.data = {};
+    $scope.gridOptionsAmigos.data = [];
     $scope.gridOptionsAmigos.paginationPageSizes = [25, 50, 75];
     // Configuracion de la paginacion
     $scope.gridOptionsAmigos.paginationPageSize = 25;
+    $scope.gridOptionsAmigos.headerTemplate = './views/header-template_amigos.html';
     $scope.gridOptionsAmigos.columnDefs = columnDefsAmigos();
     // Activo la busqueda en todos los campos.
     $scope.gridOptionsAmigos.enableFiltering = true;
+    $scope.gridOptionsAmigos.enableSorting = true;
 
+//Inicialización del marcador en el mapa
+     inicializar_markers();
 // http://ui-grid.info/docs/#/tutorial/305_appScope
      //$scope.someProp = 'abc';
      $scope.listadoAmigos = [];
@@ -42,14 +47,24 @@ angular
                    console.info('Longitud:',longitud);
                    $scope.latitud = latitud;
                    $scope.longitud = longitud;
+                   $scope.avatar = entidad.avatar;
+                   $scope.nombre = entidad.nombre; 
                    $timeout($scope.listadoAmigos = entidad.amigos);
                    // Grid optios de los amigos del usuario
                    $timeout($scope.gridOptionsAmigos.data = entidad.amigos);
-                   //console.log($timeout);
+                   console.log($scope.gridOptionsAmigos);
                    console.info('Amigos: ',$scope.listaDeAmigos)
 
                 };
+     
+     function inicializar_markers() {
+         $scope.latitud = "-47.15";
+         $scope.longitud = "-126.71666666666667";
+         $scope.avatar = "./img/cthulhu_avatar.png";
+         //$scope.avatar="http://www.hplhs.org/images/homeslider/hplhsskulllogo.png";
+         $scope.nombre = "Cthulhu";
 
+     }
 //Ingreso el API KEY para poder cargar google maps
      //$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC7EInJlB9mYQpGX5M3fGg8fYFOQ5KYhg";           
      
@@ -93,7 +108,7 @@ angular
 
     function columnDefsAmigos () {
       return [
-        { field: 'foto', name: 'foto', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+        { title:'Foto', field: 'foto', name: 'foto', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
         { field: 'nombre', name: 'Nombre'
           ,enableFiltering: false
         },

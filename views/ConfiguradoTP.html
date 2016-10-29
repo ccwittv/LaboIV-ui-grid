@@ -1,5 +1,5 @@
 <div>
-  <h5>{{titulo}}</h5>
+  <h4>{{titulo}}</h4>
   <div ui-grid="gridOptions" class="myGrid"
     ui-grid-pagination
     ui-grid-auto-resize
@@ -12,16 +12,23 @@
   </div>-->
 
   <div class="myGrid"> 
-    <ng-map zoom="2" center="{{latitud}}, {{longitud}}">
-      <marker position="{{latitud}}, {{longitud}}"></marker> 
+    <ng-map zoom="1">
+       <marker position="[{{latitud}}, {{longitud}}]"
+               animation="Animation.BOUNCE"
+               icon="{{avatar}}"
+               title = "{{nombre}}">
+       </marker> 
        <marker ng-repeat="amigo in listadoAmigos" 
-       position="{{amigo.latitud}}, {{amigo.longitud}}">
-              
+       position="[{{amigo.latitud}}, {{amigo.longitud}}]"
+       animation = "Animation.DROP"
+       icon="{{amigo.avatar}}"
+       title = "{{amigo.nombre}}">>       
         </marker>
     </ng-map>
   </div>
-
-   <div ui-grid="gridOptionsAmigos" class="cajon3"
+   
+  <br>
+  <div ui-grid="gridOptionsAmigos" class="cajon3"
     ui-grid-pagination
     ui-grid-auto-resize
     ui-grid-resize-columns
