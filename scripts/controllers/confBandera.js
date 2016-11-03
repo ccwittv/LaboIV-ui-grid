@@ -2,8 +2,8 @@ angular
   .module('app')
   .controller('ConfBanderaCtrl', function($scope, bandera, i18nService, uiGridConstants,$timeout, NgMap) {
     $scope.titulo = "Configuracion Campos Bandera";
-//Grid optios del usuario    
-    // Objeto de configuracion de la grilla.
+//Grid options del usuario    
+// Objeto de configuracion de la grilla para mostrar todas las banderas.
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];
     // Configuracion de la paginacion
@@ -13,44 +13,77 @@ angular
     $scope.gridOptions.enableFiltering = true;
     // Configuracion del idioma.
     i18nService.setCurrentLang('es');
-     
-     bandera.traerTodo().then(function(rta){
-       // Cargo los datos en la grilla.
-       console.info('RTA:',rta);
-       $scope.gridOptions.data = rta.Paises;
-     });
-
+    
     console.log(uiGridConstants);
 
-// // Grid optios de los amigos del usuario
-//     $scope.gridOptionsAmigos = {};
-//     $scope.gridOptionsAmigos.data = {};
-//     $scope.gridOptionsAmigos.paginationPageSizes = [25, 50, 75];
-//     // Configuracion de la paginacion
-//     $scope.gridOptionsAmigos.paginationPageSize = 25;
-//     $scope.gridOptionsAmigos.columnDefs = columnDefsAmigos();
-//     // Activo la busqueda en todos los campos.
-//     $scope.gridOptionsAmigos.enableFiltering = true;
+    var datosBanderas =  bandera.traerTodo();
+    console.info("Banderas Promesa (en controller): ",datosBanderas);
+    //$scope.gridOptions.data = datosBanderas; /*da un error*/
 
-// // http://ui-grid.info/docs/#/tutorial/305_appScope
-//      //$scope.someProp = 'abc';
-//      $scope.listadoAmigos = [];
-// //Muestra todos los datos de una fila y cual es la ubicación del usuario en el mundo     
-//      $scope.showMe = function(entidad,latitud,longitud){
-//                    //alert($scope.someProp);
-//                    console.info('Datos de la fila:',entidad);
-//                    console.info('Latitud:',latitud);
-//                    console.info('Longitud:',longitud);
-//                    $scope.latitud = latitud;
-//                    $scope.longitud = longitud;
-//                    $timeout($scope.listadoAmigos = entidad.amigos);
-//                    // Grid optios de los amigos del usuario
-//                    $timeout($scope.gridOptionsAmigos.data = entidad.amigos);
-//                    //console.log($timeout);
-//                    console.info('Amigos: ',$scope.listaDeAmigos)
+//El then es lo que lo hace asincrónico
+     var datos;
+     bandera.traerTodo().then(
+        function(rta){
+       // Cargo los datos en la grilla.
+            console.info('Banderas (en controller): ',rta);
+            //$scope.gridOptions.data = rta.Paises;
+            datos = rta;
+            $scope.gridOptions.data = datos;
+         },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                    console.info('ERROR (en el controller): ',response);
+                    return response.data;           
+         });
+//FIN CONFIGURACION TRAER TODAS LAS BANDERAS
 
-//                 };
+// CONFIGURACIÓN PARA MOSTRAR ÚNICAMENTE LAS IMÁGENES DE BANDERAS
+    $scope.gridOptionsImagenes = {};
+    $scope.gridOptionsImagenes.paginationPageSizes = [25, 50, 75];
+    // Configuracion de la paginacion
+    $scope.gridOptionsImagenes.paginationPageSize = 25;
+    $scope.gridOptionsImagenes.columnDefs = columnDefsImagenes();
+    // Activo la busqueda en todos los campos.
+    $scope.gridOptionsImagenes.enableFiltering = true;
+    // Configuracion del idioma.
+    i18nService.setCurrentLang('es');
+    
+    bandera.traerSoloImagen().then(
+        function(rta){
+       // Cargo los datos en la grilla.
+            console.info('Imagen (en el controller): ',rta);
+            $scope.gridOptionsImagenes.data = rta;
+         },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                    console.info('ERROR (en el controller): ',response);
+                    return response.data;           
+         });
+//FIN CONFIGURACION DE IMAGENES
 
+// CONFIGURACIÓN PARA MOSTRAR SOLAMENTE UN PAIS
+        $scope.gridOptionsUnPais = {};
+        $scope.gridOptionsUnPais.paginationPageSizes = [25, 50, 75];
+        // Configuracion de la paginacion
+        $scope.gridOptionsUnPais.paginationPageSize = 25;
+        $scope.gridOptionsUnPais.columnDefs = columnDefs(); //se utiliza la misma configuración de columnas que para mostrar todas las banderas
+        // Activo la busqueda en todos los campos.
+        $scope.gridOptionsUnPais.enableFiltering = true;
+        // Configuracion del idioma.
+        i18nService.setCurrentLang('es');
+        
+        bandera.traerUnPais('Argentina').then(
+        function(rta){
+       // Cargo los datos en la grilla.
+            console.info('Pais (en el controller): ',rta);
+            //$scope.gridOptions.data = rta.Paises;
+            $scope.gridOptionsUnPais.data = rta;
+         },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                    console.info('ERROR (en el controller): ',response);
+                    return response.data;           
+         });
+ //FIN DE UN PAIS    
+
+// Funciones privadas
 function columnDefs () {
   return [
          { field: 'BanderaChica', name: 'BanderaChica', width: 100, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
@@ -67,64 +100,12 @@ function columnDefs () {
     //      /*{ name: 'Usuario',
     //          cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ir a Mapa</button>' }*/
        ];
-}
+} //FIN funcion columnDefs
 
-//Ingreso el API KEY para poder cargar google maps
-     //$scope.googleMapsUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC7EInJlB9mYQpGX5M3fGg8fYFOQ5KYhg";           
-     
-    // function columnDefs () {
-    //   return [
-    //     { field: 'id', name: '#', width: 45},
-    //     /*{ field: 'titulo', name: 'ocupacion'
-    //       ,filter:{
-    //         condition: uiGridConstants.filter.STARTS_WITH,
-    //         placeholder: 'comienza con...'
-    //       }
-    //     },*/
-    //     { field: 'foto', name: 'foto', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
-    //     { field: 'nombre', name: 'Nombre'
-    //       ,enableFiltering: false
-    //     },
-    //     { field: 'apellido', name: 'apellido'},
-    //     { field: 'avatar', name: 'avatar', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
-    //     { field: 'email', name: 'mail'},
-    //     { field: 'sexo', name: 'sexoTP'
-    //     // filtro de busqueda.
-    //       ,filter: {
-    //         //term: '1',
-    //         type: uiGridConstants.filter.SELECT,
-    //         selectOptions: [
-    //           {value: 'Male', label: 'Hombre'},
-    //           {value: 'Female', label: 'Mujer'}
-    //         ]
-    //       }
-    //       //filtro de los datos
-    //       ,cellFilter: 'sexoTP'
-    //     },
-    //     // { field: 'fechaNacimiento', name: 'fechaNacimiento'
-    //     //   ,type: 'date'
-    //     //   ,cellFilter: "date: 'dd-MM-yyyy'"
-    //     // },
-    //      { name: 'Usuario',
-    //          cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ir a Mapa</button>' }
-    //   ];
-    // }
+function columnDefsImagenes () {
+  return [
+         { field: 'imagen', name: 'Imagen Bandera Chica', width: 250, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+       ];
+} //FIN funcion columnDefsImagenes
 
-    // function columnDefsAmigos () {
-    //   return [
-    //     { field: 'foto', name: 'foto', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
-    //     { field: 'nombre', name: 'Nombre'
-    //       ,enableFiltering: false
-    //     },
-    //     { field: 'apellido', name: 'apellido'},
-    //     { field: 'avatar', name: 'avatar', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
-    //     { field: 'fechaNacimiento', name: 'Fecha de Nacimiento'
-    //        ,type: 'date'
-    //        ,cellFilter: "date: 'dd-MM-yyyy'"
-    //      },
-    //      /*{ name: 'Usuario',
-    //          cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row.entity,row.entity.latitud,row.entity.logitud)">Ir a Mapa</button>' }*/
-    //   ];
-    // }
-
-  })
+})

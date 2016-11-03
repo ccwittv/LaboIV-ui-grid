@@ -28,7 +28,7 @@ angular
     $scope.gridOptionsAmigos.paginationPageSizes = [25, 50, 75];
     // Configuracion de la paginacion
     $scope.gridOptionsAmigos.paginationPageSize = 25;
-    $scope.gridOptionsAmigos.headerTemplate = './views/header-template_amigos.html';
+    //$scope.gridOptionsAmigos.headerTemplate = './views/header-template_amigos.html';
     $scope.gridOptionsAmigos.columnDefs = columnDefsAmigos();
     // Activo la busqueda en todos los campos.
     $scope.gridOptionsAmigos.enableFiltering = true;
@@ -108,7 +108,7 @@ angular
 
     function columnDefsAmigos () {
       return [
-        { title:'Foto', field: 'foto', name: 'foto', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+        { field: 'foto', name: 'foto', width: 60, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
         { field: 'nombre', name: 'Nombre'
           ,enableFiltering: false
         },
