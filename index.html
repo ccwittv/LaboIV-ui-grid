@@ -62,6 +62,8 @@
         <li><a ui-sref="modificar">Modificacion</a></li>
         <li><a ui-sref="confTP">ConfiguradoTP</a></li>
         <li><a ui-sref="confBandera">ConfiguradoBandera</a></li>
+        <li><a ui-sref="confFactory">Factory</a></li>
+        <li><a ui-sref="confFactoryConServicio">Factory con Servicio</a></li>
 
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -108,9 +110,14 @@
     <script src="scripts/controllers/modificar.js"></script>
     <script src="scripts/controllers/confTP.js"></script>
     <script src="scripts/controllers/confBandera.js"></script>
+    <script src="scripts/controllers/confFactory.js"></script><!-- Controller para la factory -->
+    <script src="scripts/controllers/confFactoryConServicio.js"></script><!-- Controller para la factory -->
     <script src="scripts/services/data.js"></script>
     <script src="scripts/services/filtros.js"></script>
     <script src="scripts/services/bandera.js"></script>
+    <script src="scripts/services/factoryBandera.js"></script><!-- se referencia la factory -->
+    <script src="scripts/services/factoryConServicioBandera.js"></script><!-- se referencia la factory con servicio -->
+    <script src="scripts/services/factoryRutas.js"></script><!-- tiene las referencias a las url donde estan los datos -->
     <!-- endbuild -->
 </body>
 </html>

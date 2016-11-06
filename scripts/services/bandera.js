@@ -1,10 +1,11 @@
 angular
   .module('app')
-  .service('bandera', function ($http) {
+  .service('bandera', function ($http, factoryRutas) {
 
 //Atributos públicos del servicio: lo que puedo devolver es un nombre o un puntero a una función
 //anónima.    
-    this.nombre ="prueba";
+    //this.nombre ="prueba";
+    this.nombre ="Servicio Bandera";
 
 /*Se puede interpretar de dos maneras:
   1)  le estoy creando un atributo y le estoy asignando una función
@@ -12,9 +13,12 @@ angular
     this.traerSoloImagen = TraerSoloImagen; //es un atributo pero tambien es una función
     this.traerUnPais = TraerUnPais; //no poner apertura y cierre de paréntesis PORQUE ES UNA REFERENCIA A LA FUNCION
 
+    this.traerOpcionesGrilla = TraerOpcionesGrilla;
+
 /*Variable privada*/
-    var url = 'http://www.egos27.somee.com/api/bandera';
-      
+    //var url = 'http://www.egos27.somee.com/api/bandera';
+    var url = factoryRutas.ApiBanderas;
+
 //Metodos o funciones privados del servicio
 // Hay dos formas de hacer TaersSoloImagen que es traerTodo y adentro de donde traje todo
 // en vez de devolver "data.Paises" lo que hago es un proceso que es tomar el json que me devuelve
@@ -79,9 +83,33 @@ angular
           });
 
 /* EL DATO Y EL ERROR SE EJECUTAN CUANDO VUELVE ESA PROMESA (QUE SE EJECUTA SIEMPRE)*/
-
+//En el servicio lo que creamos es una estructura nuestra (no un objeto que lo devolvemos) que si bien hereda
+//de object pero tiene solamente los atributos que nosotros le declaramos
       //return $http.get('./data/MOCK_DATA.json').then(extraerData);      
       //return $http.get('./data/100Datos.json').then(extraerData);
+    }//FIN DE FUNCIÓN
+
+    function TraerOpcionesGrilla(){
+      var opcionesGrilla = {};
+      opcionesGrilla.paginationPageSizes = [25, 50, 75];
+    // Configuracion de la paginacion
+      opcionesGrilla.paginationPageSize = 25;
+      opcionesGrilla.columnDefs = columnDefs();
+    // Activo la busqueda en todos los campos.
+      opcionesGrilla.enableFiltering = true;
+      return opcionesGrilla;
     }
 
-  })
+// esta definicion de columnas se puede devolver como una variable y tener una factory
+// que me devuelva solamente una función que sea la definición de columnas. Entonces a la 
+// factory le paso un objeto y lo que me devuelve es esta definición:
+    function columnDefs () {
+      return [
+         { field: 'BanderaChica', name: 'BanderaChica', width: 100, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+         { field: 'Bandera', name: 'Bandera', width: 100, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+         { field: 'Nombre', name: 'Nombre',  width: 100},        
+  
+        ];
+    }
+
+  })//FIN DE SERVICIO

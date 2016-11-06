@@ -49,4 +49,16 @@ angular
       templateUrl: 'views/ConfiguradoBandera.html',
       controller:'ConfBanderaCtrl'
     })
+    //nuevo estado para creación de factory
+    .state('confFactory', {
+      url: '/confFactory',
+      templateUrl: 'views/config.html',
+      controller:'ConfFactoryCtrl'
+    })
+     //nuevo estado para creación de factory con servicio
+    .state('confFactoryConServicio', {
+      url: '/confFactoryConServicio',
+      templateUrl: 'views/config.html',
+      controller:'ConfFactoryConServicioCtrl'
+    })
   });

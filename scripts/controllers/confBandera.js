@@ -16,6 +16,7 @@ angular
     
     console.log(uiGridConstants);
 
+    console.info("Funciones y atributos del servicio Bandera:",bandera);
     var datosBanderas =  bandera.traerTodo();
     console.info("Banderas Promesa (en controller): ",datosBanderas);
     //$scope.gridOptions.data = datosBanderas; /*da un error*/

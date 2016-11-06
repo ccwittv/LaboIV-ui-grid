@@ -1,19 +1,32 @@
 <div>
-  <h5>{{titulo}}</h5>
-  <div ui-grid="gridOptions" class="myGrid"
-    ui-grid-pagination
-    ui-grid-auto-resize
-    ui-grid-resize-columns
-  > </div>
-  <div ui-grid="gridOptionsImagenes" class="myGrid"
-    ui-grid-pagination
-    ui-grid-auto-resize
-    ui-grid-resize-columns
-  > </div>
-  <div ui-grid="gridOptionsUnPais" class="cajon3"
-    ui-grid-pagination
-    ui-grid-auto-resize
-    ui-grid-resize-columns
-  > </div>
+  <h4>{{titulo}}</h5>
+  <div class="row">
+    <div class="col-sm-6">
+      <h5>Todas las banderas</h5>
+        <div ui-grid="gridOptions" class="myGrid"
+          ui-grid-pagination
+          ui-grid-auto-resize
+          ui-grid-resize-columns
+        > </div>
+    </div>
+    <div class="col-sm-6">
+        <h5>Solo las imagenes</h5>    
+          <div ui-grid="gridOptionsImagenes" class="myGrid"
+            ui-grid-pagination
+            ui-grid-auto-resize
+            ui-grid-resize-columns
+          > </div>
+    </div>
+  </div>
   
+  <div class="row">
+   <div class="cajon3">
+      <h5>Solo una bandera</h5> 
+        <div ui-grid="gridOptionsUnPais" class="myGrid"
+          ui-grid-pagination
+          ui-grid-auto-resize
+          ui-grid-resize-columns
+        > </div>
+   </div>    
+  </div>
 </div>

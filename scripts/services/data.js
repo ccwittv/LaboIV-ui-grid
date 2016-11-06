@@ -1,6 +1,7 @@
 angular
   .module('app')
   .service('data', function ($http) {
+   this.nombre ="Servicio data"; 
     function extraerData (data){
       return data.data;
     }
