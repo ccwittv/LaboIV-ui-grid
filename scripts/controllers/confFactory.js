@@ -4,7 +4,7 @@ angular
     console.info(data);
     console.info("Funciones y atributos del servicio Bandera:",bandera);
     console.info("Atributos y funciones de la Factory Bandera: ",factoryBandera);
-    $scope.titulo = "Configuracion Campos Factory Tio Witto";
+    $scope.titulo = "Configuracion Campos Factory";
     // Objeto de configuracion de la grilla.
     $scope.gridOptions = {};
     $scope.gridOptions.paginationPageSizes = [25, 50, 75];

@@ -9,9 +9,9 @@ angular
    //objeto.traerUnPais = bandera.traerUnPais(pais);
    objeto.traerUnPais = TraerUnPais;
    //objeto.traerUnPais = bandera.traerSoloImagen();
-   objeto.traerUnPais = TraerSoloImagen;
+   objeto.traerSoloImagen = TraerSoloImagen;
 
-   objeto.opcionesGrilla = TraerOpcionesGrilla();
+   objeto.opcionesGrilla = TraerOpcionesGrilla;
    //objeto.opcionesGrilla = bandera.traerOpcionesGrilla;
 
 /*Siempre hay que retornar un objeto en una factoría y todo lo que especificaremos 
@@ -30,8 +30,8 @@ angular
       return bandera.traerSoloImagen();
     }
 
-    function TraerOpcionesGrilla(){
-      return bandera.traerOpcionesGrilla();
+    function TraerOpcionesGrilla(opcion){
+      return bandera.traerOpcionesGrilla(opcion);
     }
 
   }) //Cierra la factoría

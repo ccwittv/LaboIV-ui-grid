@@ -68,7 +68,7 @@ angular
       }
     }
 
-//Metodo publico del servicio
+//Metodo o función publica del servicio
     this.traerTodo = function () {
 
       return $http.get("http://www.egos27.somee.com/api/bandera").then( /* devuleve la promesa*/
@@ -80,25 +80,37 @@ angular
               //aca se ejecuta cuando hay errores
                     console.info('ERROR (en el servicio): ',response);
                     return response.data; /* devuelve el error */          
-          });
+          }); 
 
 /* EL DATO Y EL ERROR SE EJECUTAN CUANDO VUELVE ESA PROMESA (QUE SE EJECUTA SIEMPRE)*/
 //En el servicio lo que creamos es una estructura nuestra (no un objeto que lo devolvemos) que si bien hereda
 //de object pero tiene solamente los atributos que nosotros le declaramos
       //return $http.get('./data/MOCK_DATA.json').then(extraerData);      
       //return $http.get('./data/100Datos.json').then(extraerData);
-    }//FIN DE FUNCIÓN
+    }//FIN DE FUNCIÓN tipo metodo publico
 
-    function TraerOpcionesGrilla(){
+    function TraerOpcionesGrilla(opcion){
       var opcionesGrilla = {};
       opcionesGrilla.paginationPageSizes = [25, 50, 75];
     // Configuracion de la paginacion
-      opcionesGrilla.paginationPageSize = 25;
-      opcionesGrilla.columnDefs = columnDefs();
+      opcionesGrilla.paginationPageSize = 25;      
     // Activo la busqueda en todos los campos.
-      opcionesGrilla.enableFiltering = true;
+      opcionesGrilla.enableFiltering = true;    
+
+      switch(opcion) {
+        case 'gridOptions':
+          opcionesGrilla.columnDefs = columnDefs();
+          break;
+        case 'gridOptionsImagenes':
+          opcionesGrilla.columnDefs = columnDefsImagenes();
+          break;
+        case 'gridOptionsUnPais':
+          opcionesGrilla.columnDefs = columnDefs();
+          break;
+        }
+ 
       return opcionesGrilla;
-    }
+    } //FIN funcion
 
 // esta definicion de columnas se puede devolver como una variable y tener una factory
 // que me devuelva solamente una función que sea la definición de columnas. Entonces a la 
@@ -111,5 +123,11 @@ angular
   
         ];
     }
+
+    function columnDefsImagenes () {
+      return [
+         { field: 'imagen', name: 'Imagen Bandera Chica', width: 250, cellTemplate:"<img width=\"20px\" ng-src=\"{{grid.getCellValue(row, col)}}\" lazy-src>"},
+             ];
+    } //FIN funcion
 
   })//FIN DE SERVICIO
