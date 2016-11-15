@@ -62,4 +62,11 @@ angular
       templateUrl: 'views/ConfiguradoBandera.html',
       controller:'ConfFactoryConServicioCtrl'
     })
+     //nuevo estado para la directiva
+    .state('confDirectiva', {
+      url: '/confDirectiva',
+      //templateUrl: 'views/config.html',
+      templateUrl: 'views/directiva.html',
+      controller:'DirectivaCtrl'
+    })
   });
