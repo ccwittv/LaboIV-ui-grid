@@ -32,6 +32,17 @@
 
 	<utn-titulo-parametro miparametro="Nuevo Titulo"> </utn-titulo-parametro>
 
+	<utn-bandera miparametropais="Un nombre de País" miparametrobandera="Una foto de una Bandera"> </utn-bandera>
+
+	<div ng-repeat="bandera in listadoDeBanderas"
+		utn-bandera miparametropais={{bandera.Nombre}}
+		miparametrobandera={{bandera.BanderaChica}}> 
+	</div>
+
+	<div ng-repeat="bandera in listadoDeBanderas"
+		utn-bandera-obj labanderaporparametro=bandera>		
+	</div>
+
 </body>
 </html>
 </div>

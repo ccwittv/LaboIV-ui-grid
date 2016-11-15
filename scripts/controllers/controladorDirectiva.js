@@ -1,6 +1,6 @@
 angular
   .module('app')
-  .controller('DirectivaCtrl', function($scope, data, i18nService, uiGridConstants) {
+  .controller('DirectivaCtrl', function($scope, data, factoryConServicioBandera,i18nService, uiGridConstants) {
     $scope.titulo = "Configuracion Campos";
     // Objeto de configuracion de la grilla.
     $scope.gridOptions = {};
@@ -20,6 +20,19 @@ angular
     });
 
     console.log(uiGridConstants);
+    
+    $scope.listadoDeBanderas = {};        
+    factoryConServicioBandera.traerTodo().then(
+        function(rta){
+       // Cargo los datos en la grilla.
+            //console.info('Banderas (en controller): ',rta);
+            $scope.listadoDeBanderas = rta;
+            console.info('Listado de banderas ',$scope.listadoDeBanderas);
+         },function errorCallback(response) {        
+              //aca se ejecuta cuando hay errores
+                console.info('ERROR (en el controller): ',response);
+                return response.data;           
+         });
 
     function columnDefs () {
       return [

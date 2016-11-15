@@ -35,6 +35,28 @@ angular
   	 		  templateUrl:"templates/templateTitulos.html"};
   })
 
+//Las directivas devuelven interfaces y pueden cambiar el scope del controller
+ .directive('utnBandera', function() {  
+     return { scope:{
+                    nombrepais:'@miparametropais',
+                    fotobandera: '@miparametrobandera'
+                  }, 
+          replace:true, 
+          restrict:"EA", 
+          templateUrl:"templates/templateBandera.html"};
+  })
+
+//se envia todo el objeto
+ .directive('utnBanderaObj', function() {  
+     return { scope:{
+                    mibandera:'=labanderaporparametro'
+                    /*nombrepais:'@miparametropais',
+                    fotobandera: '@miparametrobandera'*/
+                  }, 
+          replace:true, 
+          restrict:"EA", 
+          templateUrl:"templates/templateBandera.html"};
+  })
 
 
 
